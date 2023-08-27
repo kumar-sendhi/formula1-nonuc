@@ -20,7 +20,7 @@ for x in dbutils.secrets.get('formula1-scope','clientid'):
 
 # COMMAND ----------
 
-storage_account_name ="seyonformula1dls"
+storage_account_name ="seyonstoragedlsfailover"
 client_id=dbutils.secrets.get('formula1-scope','clientid')
 tenant_id=dbutils.secrets.get('formula1-scope','tenantid')
 client_secret=dbutils.secrets.get('formula1-scope','clientsecret')
@@ -49,6 +49,10 @@ dbutils.fs.mount(
 source = f"abfss://{container_name}@{storage_account_name}.dfs.core.windows.net/",
 mount_point = f"/mnt/{storage_account_name}/{container_name}",
     extra_configs=configs)
+
+# COMMAND ----------
+
+dbutils.fs.unmount('/mnt/seyonstoragedlsfailover/raw')
 
 # COMMAND ----------
 
